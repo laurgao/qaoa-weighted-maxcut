@@ -80,3 +80,24 @@ I got 1/2 of the correct answer, at least! Similing through the pain
 
 
 Future: debug this code and see what's up. I estimate that doing such a task would take at least an hour, likely more (remember the 5 hours switching a single cost unitary matrix? That was because I was debugging the output of `qml.Hermitian(np.diag(range(2 ** n_wires)), wires=wires)`. So instead, I'm using an hour to write up this account of my experience. 
+
+---
+
+Yup the notebooks right now are pretty messy. I started writing my own code starting from 8.ipynb. I spent a good first hour trying to make all my variables "politically correct", having a space for all user inputs in one place, etc. But now...
+
+11 is filled with comments from debugging. I should go through and clean it up. But as I'm writing this, I have 6 mins left before submissions...
+
+
+## Some interesting insights
+
+I used what I dubbed a "lazy cost function" for a good chunk of my QAOA time: `weighted_cost = unweighted_cost * weight`
+
+It does not output the correct cost, but nevertheless it still works on Cirq... kind of. I found this interesting. 
+
+On Cirq, the lazy cost function outputs the correct answer but with less certainty. 
+
+![Lazy cost function output](img/lazy-cost-output-cirq.png)
+
+Compared to the legit cost function: 
+
+![Legit cost function output](img/cirq-output.png)
