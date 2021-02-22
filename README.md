@@ -1,9 +1,17 @@
 # 11 Notebooks, 10 failures  
-###### My QAOA maxcut journey  
-Total time spent:  
+Time spent: 
+* Feb 20 6AM-9AM
+* Feb 20 12:30PM-2:30PM
+* Feb 20 7PM-10PM
+* Feb 21 6AM-9AM
+* Feb 21 10AM-11:30AM
+* Feb 21 1PM-5:40PM
+* Feb 21 6:30PM-10PM
+Total time spent:  ~17 hours
 
 *WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [5-cirq-final.ipynb](/attempts/5-cirq-final.ipynb). This is an implementation in Cirq. However, I spent the majority of time trying to build an implementation in Pennylane, in the notebook [11-pennylane-final.ipynb](/attempts/11-pennylane-final.ipynb). I ultimately failed, but you can check it out if you want. Even though the code there is incorrect, I have better explanations of the algorithm.*
 
+### My QAOA maxcut journey 
 
 My goal for this task was to "re-implement" Jack's code into Pennylane. I thought it would be easy: I already had a working non-weighted maxcut Pennylane code, as well as working weighted code from Cirq to base the circuit architecture off of. It would just be a quick tweak of a few lines of code, and all done, right?  
 Wrong. It's been 6+ hours and my code still doesn't work :facepalm:  
@@ -86,9 +94,13 @@ Future: debug this code and see what's up. I estimate that doing such a task wou
 
 ---
 
-Yup the notebooks right now are pretty messy. I started writing my own code starting from 8.ipynb. I spent a good first hour trying to make all my variables "politically correct", having a space for all user inputs in one place, wanting to explain how the algorithm works in every line of code. But now...
+As of 8pm, the notebooks right now are pretty messy. I started writing my own code starting from 8.ipynb. I spent a good first hour trying to make all my variables "politically correct", having a space for all user inputs in one place, wanting to explain how the algorithm works in every line of code. But now...
 
-11 is filled with comments from debugging. I should go through and clean it up. But as I'm writing this, I have 6 mins left before submissions...
+11 is filled with comments from debugging. 
+
+9:28 PM: I have updated notebook 11.
+
+Also, I realized that all the content from 8.ipynb got deleted somehow. I'm positive I spammed ctrl+s in the Jupyter Notebook editor 10 times before closing, but... oh well. There goes the notebook I spent 5 hours debugging and 2 hours making the comments and structure perfect.
 
 
 ## Some interesting insights
