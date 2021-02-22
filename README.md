@@ -34,7 +34,7 @@ I had just figured out how to generalize an unweighted maxcut circuit into a wei
 3. Change the input graph into a weighted one
 
 
-This was before I had really looked at anyone else's implementations in practice. I based it off of my understanding of theory. By nature that we're trying to maximize the sum of the weights of the number of cut edges, it made sense to simply multiply the unweighted cost by the weight. An edge with a higher weight being cut would increase our "score" more than an edge with a lower weight. 
+This was before I had really looked at anyone else's weighted implementations in practice, so I based it off of my understanding of the theory. By nature that we're trying to maximize the sum of the weights of the number of cut edges, it made sense to simply multiply the unweighted cost by the weight. An edge with a higher weight being cut would increase our "score" more than an edge with a lower weight. 
 
 In Jack Ceroni's code, for the cost hamiltonian, he uses `cirq.ZZPowGate(exponent= -1*gamma/math.pi).on(qubits[i.start_node], qubits[i.end_node])`
 
@@ -115,6 +115,7 @@ As of 8pm, the notebooks right now are pretty messy. I started writing my own co
 9:28 PM: I have updated notebook 11.
 
 Also, I realized that all the content from 8.ipynb got deleted somehow. I'm positive I spammed ctrl+s in the Jupyter Notebook editor 10 times before closing, but... oh well. There goes the notebook I spent 5 hours debugging and 2 hours making the comments and structure perfect.
+
 
 
 ## Some interesting insights
