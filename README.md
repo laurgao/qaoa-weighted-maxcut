@@ -7,6 +7,7 @@ Time spent:
 * Feb 21 10AM-11:30AM
 * Feb 21 1PM-5:40PM
 * Feb 21 6:30PM-10PM  
+
 Total time spent:  ~17 hours
 
 *WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [5-cirq-final.ipynb](/attempts/5-cirq-final.ipynb). This is an implementation in Cirq. However, I spent the majority of time trying to build an implementation in Pennylane, in the notebook [11-pennylane-final.ipynb](/attempts/11-pennylane-final.ipynb). I ultimately failed, but you can check it out if you want. Even though the code there is incorrect, I have better explanations of the algorithm.*
