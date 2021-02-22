@@ -2,6 +2,9 @@
 ###### My QAOA maxcut journey  
 Total time spent:  
 
+*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [5-cirq-final.ipynb](/attempts/5-cirq-final.ipynb). This is an implementation in Cirq. However, I spent the majority of time trying to build an implementation in Pennylane, in the notebook [11-pennylane-final.ipynb](/attempts/11-pennylane-final.ipynb). I ultimately failed, but you can check it out if you want. Even though the code there is incorrect, I have better explanations of the algorithm.*
+
+
 My goal for this task was to "re-implement" Jack's code into Pennylane. I thought it would be easy: I already had a working non-weighted maxcut Pennylane code, as well as working weighted code from Cirq to base the circuit architecture off of. It would just be a quick tweak of a few lines of code, and all done, right?  
 Wrong. It's been 6+ hours and my code still doesn't work :facepalm:  
 To understand why, let's look at where I was at 11:30 AM, Febrary 21.  
