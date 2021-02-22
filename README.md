@@ -10,7 +10,7 @@ Time spent:
 
 Total time spent:  ~17 hours
 
-*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [11-pennylane-final.ipynb](/attempts/11-pennylane-final.ipynb). This is an implementation in Pennylane that I coded essentially from the ground up. The code in said notebook isn't perfect and the result is not always correct, but I choose to submit it anyway. I do, however, want to let you know that I have a perfectly-working implementation of QAOA weighted maxcut in the notebook [6-cirq-final.ipynb](/attempts/6-cirq-final.ipynb) - the code there outputs the correct result and is much more effecient than the code I wrote.*
+*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [11-pennylane-final.ipynb](/attempts/11-pennylane-final.ipynb). This is an implementation in Pennylane that I coded essentially from the ground up. The code in said notebook isn't perfect and the result is not always correct, from reasons you'll see later, but I choose to submit it anyway. I do, however, want to let you know that I have a perfectly-working implementation of QAOA weighted maxcut in the notebook [6-cirq-final.ipynb](/attempts/6-cirq-final.ipynb) - the code there outputs the correct result and is much more effecient than the code I wrote.*
 
 ## Problem statement
 
@@ -109,21 +109,24 @@ How did it do?
 
 ![Pennylane output histogram](img/pennylane-output.png "I got 1/2 of the correct answer, at least! Similing through the pain")
 
-I got 1/2 of the correct answer, at least! Similing through the pain
+I got 1/2 of the correct answer, at least! *Similing through the pain*
 
 
 Future: debug this code and see what's up. I estimate that doing such a task would take at least an hour, likely more (remember the 5 hours switching a single cost unitary matrix? That was because I was debugging the output of `qml.Hermitian(np.diag(range(2 ** n_wires)), wires=wires)`. So instead, I'm using an hour to write up this account of my experience. 
 
+I estimate that it's because I'm measuring a single state instead of sampling from multiple states. It sure looks like it. However, the `get_counts(optimal_params_vector)` function I am executing to generate this plot is indeed firing 100 shots... so I have no clue what's up.
+
 ---
 
-As of 8pm, the notebooks right now are pretty messy. I started writing my own code starting from 8.ipynb. I spent a good first hour trying to make all my variables "politically correct", having a space for all user inputs in one place, wanting to explain how the algorithm works in every line of code. But now...
+As of 8pm, the notebooks are pretty messy. I started writing my own code starting from 8.ipynb. I spent a good first hour trying to make all my variables "politically correct", having a space for all user inputs in one place, wanting to explain how the algorithm works in every line of code. But after a while, I pivoted to focusing on making the code logic work before improving its presentation. Now...
 
 11 is filled with comments from debugging. 
 
-10:27 PM: I have updated notebook 11. It's no longer filled with comments from debugging. But 5 and all the others still are.
+10:27 PM: I have updated notebook 11. It's no longer filled with comments from debugging. But 6 and all the others still are.
 
-Also, I realized that all the content from 8.ipynb got deleted somehow. I'm positive I spammed ctrl+s in the Jupyter Notebook editor 10 times before closing, but... oh well. There goes the notebook I spent 5 hours debugging and 2 hours making the comments and structure perfect.
+Also, I realized that all the content from 8.ipynb got deleted somehow. I'm positive I spammed ctrl+s in the Jupyter Notebook editor 10 times before closing, but... oh well. There goes the notebook I spent 5 hours debugging and 2 hours making the comments/structure perfect.
 
+On a side note, this might be why I always feel tense and experience anxiety while coding -- I have no trust that my files will stay or that the same code will run the same way when I run it a second time. For this, I might just need to understand backend OS elements better.
 
 
 ## Some interesting insights
@@ -138,4 +141,4 @@ Compared to the legit cost function:
 
 ![Legit cost function output](img/cirq-output.png)
 
-I found this interesting. I'm curious to know why. I'm going to work through this math.
+I found this interesting. I'm curious to know why. I want to work through this math.
