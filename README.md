@@ -120,7 +120,7 @@ As of 8pm, the notebooks right now are pretty messy. I started writing my own co
 
 11 is filled with comments from debugging. 
 
-10:27 PM: I have updated notebook 11.
+10:27 PM: I have updated notebook 11. It's no longer filled with comments from debugging. But 5 and all the others still are.
 
 Also, I realized that all the content from 8.ipynb got deleted somehow. I'm positive I spammed ctrl+s in the Jupyter Notebook editor 10 times before closing, but... oh well. There goes the notebook I spent 5 hours debugging and 2 hours making the comments and structure perfect.
 
