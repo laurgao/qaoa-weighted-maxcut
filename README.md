@@ -10,7 +10,7 @@ Time spent:
 
 Total time spent:  ~17 hours
 
-*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [11-pennylane-final.ipynb](/attempts/11-pennylane-final.ipynb). This is an implementation in Pennylane that I coded essentially from the ground up. The code in said notebook isn't perfect and the result is not always correct, but I choose to submit it anyway. I do, however, want to let you know that I have a perfectly-working implementation of QAOA weighted maxcut in the notebook [5-cirq-final.ipynb](/attempts/5-cirq-final.ipynb) - the code there outputs the correct result and is much more effecient than the code I wrote.*
+*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [11-pennylane-final.ipynb](/attempts/11-pennylane-final.ipynb). This is an implementation in Pennylane that I coded essentially from the ground up. The code in said notebook isn't perfect and the result is not always correct, but I choose to submit it anyway. I do, however, want to let you know that I have a perfectly-working implementation of QAOA weighted maxcut in the notebook [6-cirq-final.ipynb](/attempts/6-cirq-final.ipynb) - the code there outputs the correct result and is much more effecient than the code I wrote.*
 
 ## Problem statement
 
@@ -33,7 +33,7 @@ I had just figured out how to generalize an unweighted maxcut circuit into a wei
 2. Change the cost unitary matrix - multiply the exponent of the Cirq ZZPowGate by the weight
 3. Change the input graph into a weighted one
 
-(This is the code of [5-cirq-final.ipynb](/attempts/5-cirq-final.ipynb))
+(This is the code of [6-cirq-final.ipynb](/attempts/6-cirq-final.ipynb))
 
 
 This was before I had really looked at anyone else's weighted implementations in practice, so I based it off of my understanding of the theory. By nature that we're trying to maximize the sum of the weights of the number of cut edges, it made sense to simply multiply the unweighted cost by the weight. An edge with a higher weight being cut would increase our "score" more than an edge with a lower weight. 
