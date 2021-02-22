@@ -24,7 +24,9 @@ At [this link](https://lucaman99.github.io/new_blog/2020/mar16.html) you can fin
 
 Picture this: you know nothing about QAOA (beyond it has a cool name some pronounce "kwa-wa") and in less than 48 hours, you're supposed to build a implementation of the algorithm to solve the weighted maxcut problem, generalized to be able to work on any graph.
 
-That's where I was on the morning of Saturday, Feb 20. I had to submit this code as part of a screening task for [QOSF mentorship]([https://qosf.org/qc_mentorship/](https://qosf.org/qc_mentorship/)) applications.
+That's where I was on the morning of Saturday, Feb 20. By Sunday night, I had to submit this code as part of a screening task for [QOSF mentorship](https://qosf.org/qc_mentorship/) applications.
+
+My anxiety levels were though the roof. No kidding.
 
 ### How I learnt and built QAOA in 2 days
 #### Saturday Part 1: Pennylane unweighted implementation
