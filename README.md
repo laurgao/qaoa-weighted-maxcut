@@ -12,11 +12,22 @@ Total time spent:  ~17 hours
 
 *WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [5-cirq-final.ipynb](/attempts/5-cirq-final.ipynb). This is an implementation in Cirq. However, I spent the majority of time trying to build an implementation in Pennylane, in the notebook [11-pennylane-final.ipynb](/attempts/11-pennylane-final.ipynb). I ultimately failed, but you can check it out if you want. Even though the code there is incorrect, I have better explanations of the algorithm.*
 
-### My QAOA maxcut journey 
+## Problem statement
 
-My goal for this task was to "re-implement" Jack's code into Pennylane. I thought it would be easy: I already had a working non-weighted maxcut Pennylane code, as well as working weighted code from Cirq to base the circuit architecture off of. It would just be a quick tweak of a few lines of code, and all done, right?  
+The [MaxCut problem](https://en.wikipedia.org/wiki/Maximum_cut) is a well-known optimization problem in which the nodes of a given undirected graph have to be divided in two sets (often referred as the set of “white” and “black” nodes) such that the number of edges connecting a white node with a black node are maximized. The MaxCut problem is a problem on which the QAOA algorithm has proved to be useful (for an explanation of the QAOA algorithm you can read [this blogpost](https://www.mustythoughts.com/quantum-approximate-optimization-algorithm-explained)).
+
+At [this link](https://lucaman99.github.io/new_blog/2020/mar16.html) you can find an explicit implementation of the QAOA algorithm to solve the MaxCut problem for the simpler case of an unweighted graph. We ask you to generalize the above code to include also the solution for the case of weighted graphs. You can use the same code or you can also do an alternative implementation using, for example, qiskit. The important point is that you do not make use of any built-in QAOA functionalities.
+
+**Tl;dr: Generalize the QAOA code to solve the maxcut problems for *weighted* graphs.**
+
+## My QAOA maxcut journey 
+
+My persoanl goal for this task was to "re-implement" Jack's code into Pennylane. I thought it would be easy: I already had working non-weighted maxcut Pennylane code, as well as working weighted code from Cirq to base the circuit architecture off of. It would just be a quick tweak of a few lines of code, and all done, right?  
+
 Wrong. It's been 6+ hours and my code still doesn't work :facepalm:  
+
 To understand why, let's look at where I was at 11:30 AM, Febrary 21.  
+
 I had just figured out how to generalize an unweighted maxcut circuit into a weighted one. It was quite easy: I had to tweak the code in what comes down to 3 locations:  
 1. Change the cost function to take weights into account. I multiplied the unweighted cost by the weight.
 2. Change the cost unitary matrix - multiply the exponent of the cirq ZZPowGate by the weight
@@ -27,9 +38,11 @@ This was before I had really looked at anyone else's implementations in practice
 
 In Jack Ceroni's code, for the cost hamiltonian, he uses `cirq.ZZPowGate(exponent= -1*gamma/math.pi).on(qubits[i.start_node], qubits[i.end_node])`
 
-The ZZ powgate didn't exist in Pennylane, so I looked at the cirq docs to find out what it meant. Then, I built it into pennylane myself using qml.Hermitian() to put any gate onto the pennylane circuit.
+The ZZPowGate didn't exist in Pennylane, so I looked at the Cirq docs to find out what it meant. What the gate does: takes the tensor product (or kronecker product) of 2 pauli Z matrices, and raises it to the power of a parameter you input. This is done because each edge has 2 vertices and each vertex is a qubit, therefore we need to take the expected value of 2 qubits in the Z basis, hence the tensor product of two Z matrices.
 
-Before ZZpowgating, the OG pennylane cost unitary was:
+Then, I built the gate into Pennylane myself using `qml.Hermitian()`. `qml.Hermitian()` essentially is used to put any unitary matrix you defined as a gate onto your circuit.
+
+Before ZZPowGate-ing, the OG Pennylane cost unitary was:
 
 ```python
 def U_C(gamma):
@@ -50,20 +63,20 @@ def U_C(gamma):
         end_node = edge[1]
         weight = edge[2]
         pauli_z = [[1, 0], [0, -1]] # Define the Pauli-Z matrix. This is because we want to find the expected value of each edge pseudo-measured in the Z basis.
-        pauli_z_2 = np.kron(pauli_z, pauli_z) # Takes the tensor product (or kronecker product) of 2 pauli Z matrices. This is because each edge has 2 vertices, each vertex is a qubit, so we need to take the expected value of 2 qubits in z basis, hence the tensor product of 2 z matrices.
+        pauli_z_2 = np.kron(pauli_z, pauli_z) 
         cost_unitary = scipy.linalg.fractional_matrix_power(pauli_z_2, -1*gamma/np.pi) # The unitary gate that will be applied to our circuit
         qml.Hermitian(cost_unitary, wires=[start_node, end_node]) # Note: wires = qubits. Here we are applying the unitary matrix we defined onto the 2 vertices of our edge.
 ```
 
 Here's where the first major problem came in: ciq basically had it like the quantum circuit outputs the measurement in the computational basis, then we fire 100 shots at the circuit to find the probability distribution of the measured states. In pennylane, the root implementation **circuit directly outputs the expected value**.
 
-In order to put qml.hermitian, I had to change the pennylane circuit to also output a computational basis measurement.
+In order to put qml.Hermitian, I had to change the pennylane circuit to also output a computational basis measurement.
 
 Then, I had to write extra fucntions to fire multiple shots and take the average. I couldn't re-use the cirq functions here, because pennylane has weird outputs.
 
 So... I spent a decent chunk of my sunday afternoon on this task. I spent about 5 hours changing the circuit structure.
 
-Now, after talking to Avneesh, I found out that I didn't actually have to ZZpowgate the pennylane circuit. I could've just multiplied the gamma from the original cost hamiltonian by the weight 🤦‍♂️ 
+Now, after talking to Avneesh, I found out that I didn't actually have to ZZPowGate the pennylane circuit. I could've just multiplied the gamma from the original cost hamiltonian by the weight 🤦‍♂️ 
 
 Like this:
 
@@ -108,9 +121,7 @@ Also, I realized that all the content from 8.ipynb got deleted somehow. I'm posi
 
 I used what I dubbed a "lazy cost function" for a good chunk of my QAOA time: `weighted_cost = unweighted_cost * weight`
 
-It does not output the correct cost, but nevertheless it still works on Cirq... kind of. I found this interesting. 
-
-On Cirq, the lazy cost function outputs the correct answer but with less certainty. 
+It does not output the correct cost, but nevertheless it still works on Cirq... kind of. The lazy cost function outputs the correct answer but with less certainty: 
 
 ![Lazy cost function output](img/lazy-cost-function-cirq.png)
 
@@ -118,3 +129,4 @@ Compared to the legit cost function:
 
 ![Legit cost function output](img/cirq-output.png)
 
+I found this interesting. I'm curious to know why. I'm going to work through this math.
