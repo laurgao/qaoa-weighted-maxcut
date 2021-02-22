@@ -1,5 +1,5 @@
 # 11 Notebooks, 10 failures  
-My QAOA maxcut journey  
+###### My QAOA maxcut journey  
 Total time spent:  
 
 My goal for this task was to "re-implement" Jack's code into Pennylane. I thought it would be easy: I already had a working non-weighted maxcut Pennylane code, as well as working weighted code from Cirq to base the circuit architecture off of. It would just be a quick tweak of a few lines of code, and all done, right?  
@@ -96,7 +96,7 @@ It does not output the correct cost, but nevertheless it still works on Cirq... 
 
 On Cirq, the lazy cost function outputs the correct answer but with less certainty. 
 
-![Lazy cost function output](img/lazy-cost-output-cirq.png)
+![Lazy cost function output](img/lazy-cost-function-cirq.png)
 
 Compared to the legit cost function: 
 
