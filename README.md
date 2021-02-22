@@ -83,7 +83,7 @@ Future: debug this code and see what's up. I estimate that doing such a task wou
 
 ---
 
-Yup the notebooks right now are pretty messy. I started writing my own code starting from 8.ipynb. I spent a good first hour trying to make all my variables "politically correct", having a space for all user inputs in one place, etc. But now...
+Yup the notebooks right now are pretty messy. I started writing my own code starting from 8.ipynb. I spent a good first hour trying to make all my variables "politically correct", having a space for all user inputs in one place, wanting to explain how the algorithm works in every line of code. But now...
 
 11 is filled with comments from debugging. I should go through and clean it up. But as I'm writing this, I have 6 mins left before submissions...
 
@@ -101,3 +101,4 @@ On Cirq, the lazy cost function outputs the correct answer but with less certain
 Compared to the legit cost function: 
 
 ![Legit cost function output](img/cirq-output.png)
+
