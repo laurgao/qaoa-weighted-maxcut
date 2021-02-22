@@ -74,8 +74,9 @@ Now, armed with this new insight, I updated my code and re-trained the Pennylane
 
 How did it do?
 
-![Pennylane output histogram](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "I got 1/2 of the correct answer, at least! Similing through the pain")
+![Pennylane output histogram](img/pennylane-output.png "I got 1/2 of the correct answer, at least! Similing through the pain")
 
+I got 1/2 of the correct answer, at least! Similing through the pain
 
 
 Future: debug this code and see what's up. I estimate that doing such a task would take at least an hour, likely more (remember the 5 hours switching a single cost unitary matrix? That was because I was debugging the output of `qml.Hermitian(np.diag(range(2 ** n_wires)), wires=wires)`. So instead, I'm using an hour to write up this account of my experience. 
