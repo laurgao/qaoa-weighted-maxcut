@@ -7,6 +7,7 @@ Picture this: you know nothing about QAOA (beyond it has a cool name some pronou
 That's where I was on the morning of Saturday, Feb 20. By Sunday night, I had to submit this code as part of a screening task for [QOSF mentorship](https://qosf.org/qc_mentorship/) applications. The task: Generalize Jack Ceroni's QAOA code to solve the maxcut problems for *weighted* graphs. (For those unfamiliar, [here](problem-statement.md) is the full problem statement.)
 
 My anxiety levels were though the roof. No kidding.
+<br/><br/>
 
 ## How I learnt and built QAOA in 2 days
 ### Saturday Part 1: Pennylane unweighted implementation
