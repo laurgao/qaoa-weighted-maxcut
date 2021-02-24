@@ -236,6 +236,7 @@ It's at -9, but then goes to *-6*. The cost *increases* by a significant amount.
 
 * The correct answers have the highest frequency, but a few others are pretty close behind:
 ![Pennylane output histogram](img/pennylane-output-3.png "Yay!")
+
 Maybe I should experiment with more layers.
 
 * My final code takes ~3-5 mins to train. Compared to the Cirq code based off of Jack's [6-cirq-final.ipynb](/attempts/6-cirq-final.ipynb) which takes less than 10 seconds to train.
