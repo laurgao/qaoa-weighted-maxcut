@@ -239,7 +239,7 @@ It's at -9, but then goes to *-6*. The cost *increases* by a significant amount.
 
 Maybe I should experiment with more layers.
 
-* My final code takes ~3-5 mins to train. Compared to the Cirq code based off of Jack's [6-cirq-final.ipynb](/attempts/6-cirq-final.ipynb) which takes less than 10 seconds to train.
+* My final code takes ~3-5 mins to train. Compared to the Cirq code based off of Jack's ([6-cirq-final.ipynb](/attempts/6-cirq-final.ipynb)) which takes less than 10 seconds to train.
 
 ## Some interesting insights
 
