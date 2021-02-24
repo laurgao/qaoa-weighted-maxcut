@@ -1,16 +1,12 @@
 # 12 Notebooks, 11 failures  
 
+*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [12-pennylane-final.ipynb](/attempts/12-pennylane-final.ipynb).*  
+
 Picture this: you know nothing about QAOA (beyond it has a cool name some pronounce "kwa-wa") and in less than 48 hours, you're supposed to build a implementation of the algorithm to solve the weighted maxcut problem, generalized to be able to work on any graph.
 
 That's where I was on the morning of Saturday, Feb 20. By Sunday night, I had to submit this code as part of a screening task for [QOSF mentorship](https://qosf.org/qc_mentorship/) applications. The task: Generalize Jack Ceroni's QAOA code to solve the maxcut problems for *weighted* graphs. (For those unfamiliar, [here](problem-statement.md) is the full problem statement.)
 
 My anxiety levels were though the roof. No kidding.
-
-This is my QAOA maxcut journey.
-
-*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [12-pennylane-final.ipynb](/attempts/12-pennylane-final.ipynb).*
-
-Now, with that out of the way, it's storytime!
 
 ## How I learnt and built QAOA in 2 days
 ### Saturday Part 1: Pennylane unweighted implementation
