@@ -1,20 +1,19 @@
-# 12 Notebooks, 10 failures  
-###### My QAOA maxcut journey 
+# 12 Notebooks, 11 failures  
 
 Picture this: you know nothing about QAOA (beyond it has a cool name some pronounce "kwa-wa") and in less than 48 hours, you're supposed to build a implementation of the algorithm to solve the weighted maxcut problem, generalized to be able to work on any graph.
 
-That's where I was on the morning of Saturday, Feb 20. By Sunday night, I had to submit this code as part of a screening task for [QOSF mentorship](https://qosf.org/qc_mentorship/) applications.
+That's where I was on the morning of Saturday, Feb 20. By Sunday night, I had to submit this code as part of a screening task for [QOSF mentorship](https://qosf.org/qc_mentorship/) applications. The task: Generalize Jack Ceroni's QAOA code to solve the maxcut problems for *weighted* graphs. (For those unfamiliar, [here](problem-statement.md) is the full problem statement.)
 
 My anxiety levels were though the roof. No kidding.
 
-*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [12-pennylane-final.ipynb](/attempts/12-pennylane-final.ipynb).
+This is my QAOA maxcut journey.
 
-**Problem statement:  Generalize the provided QAOA code to solve the maxcut problems for *weighted* graphs.**
+*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [12-pennylane-final.ipynb](/attempts/12-pennylane-final.ipynb).*
 
-For those unfamiliar, [here](problem-statement.md) is the full problem statement.
+Now, with that out of the way, it's storytime!
 
-### How I learnt and built QAOA in 2 days
-#### Saturday Part 1: Pennylane unweighted implementation
+## How I learnt and built QAOA in 2 days
+### Saturday Part 1: Pennylane unweighted implementation
 
 On Saturday morning 6AM, I started out with reading the [Pennylane demo](https://pennylane.ai/qml/demos/tutorial_qaoa_maxcut.html). In this demo, the Pennylane dev team demonstrates an implementation of QAOA in Pennylane code to solve an unweighted graph. Alongside Cirq and Qiskit, Pennylane is a python package that you can use to program quantum circuits.
 
@@ -36,9 +35,9 @@ I ended up looking at the Pennylane demo and essentially copying their code. I d
 
 This is the code of [1.ipynb](/attempts/1.ipynb) and [2.ipynb](/attempts/2.ipynb).
 
-#### Saturday Part 2: Pennylane weighted implementation
+### Saturday Part 2: Pennylane weighted implementation
 
-It was around noon. It then hit me that I had less than 36 hours to get this weighted maxcut thing to work. Copying code was inefficient, and the code I wrote was still struggling to correctly perform unweighted maxcut. I decided to stop trying to get my own unweighted code to work, and just try to make weighted maxcut work. Since the problem statement asked us to generalize Jack Ceroni's unweighted maxcut code into weighted maxcut, I figured that if I copy/pasted the Pennylane demo's code and generalized that, it wouldn't be *bad* that I didn't code it from scratch.
+It took a whole morning to do that. At around noon, it hit me that I had less than 36 hours to get this weighted maxcut thing to work. Copying code was inefficient, and the code I wrote was still struggling to correctly perform unweighted maxcut. I decided to stop trying to get my own unweighted code to work, and redirect my efforts soley onto try to make weighted maxcut work. Since the problem statement asked us to generalize Jack Ceroni's unweighted maxcut code into weighted maxcut, I figured that if I copy/pasted the Pennylane demo's code and generalized that, it wouldn't be *bad* that I didn't code it from scratch.
 
 So, that's what I did. I copy pasted the code from Pennylane's demo, and tried to generalize it to weighted maxcut. 
 
@@ -50,23 +49,25 @@ I was trying things out based on my own intuition: By the nature that we're tryi
 
 I essentially multiplied the weighted cost of each edge by the weight. And when that didn't work, I had no idea what else to do.
 
-This moment in time was the lowest point along this journey. I felt so demotivated. I wanted to give up. I saw no point in trying because I would most likely fail. Who did I think I was, someone who is able to learn QAOA in 2 days?
+This moment in time was the lowest point along this journey. I felt so demotivated. I wanted to give up. I had just spent a day without any results or even a sign of progress. I saw no point in trying because I would most likely fail. Who did I think I was, someone who is able to learn QAOA in 2 days?
 
-I replayed the situation of not submitting the QOSF application in my head. After all, 500 out of 700 applicants last round didn't submit their screening task. I would not be missed.
+I replayed the situation of not submitting the QOSF application in my head. After all, ~470 out of 750 applicants last round didn't submit their screening task. No one would miss me.
 
 I don't know why I kept going, but I did.
 
-#### Sunday Part 1: Exploring
+### Sunday Part 1: Exploring
 
 I decided to take another concept from machine learning: allocating some time to both exploitation and exploration. On Saturday, I was full on exploiting — spending the whole day on debugging and writing code. On Saturday, I didn't think it would be worth the time to do exploration because I was on such a time crunch.
 
 On Sunday morning, I decided to try some exploration. I printed out and read a few articles on QAOA to try to get some inspiration or to possibly find some holes in my logic. And that's when I stumbled on this picture from the Musty Thoughts blogpost: 
 
+![img/07_circuit.png](img/07_circuit.png)
+
 The CNOT gate of the cost unitary had weights attached? 
 
-Previously, the only code modification I had made to change unweighted → weighted was modifying the cost function to include the weights of each edge. So I supposed this one change wasn't enough, and instead I needed to modify the cost unitary in some way.
+Previously, the only code modification I made to change unweighted → weighted was: modifying the cost function to include the weights of each edge. So I supposed this one change wasn't enough, and instead I needed to modify the cost unitary in some way.
 
-#### Sunday Part 2: Abandoning Pennylane for a Cirq weighted maxcut implementation
+### Sunday Part 2: Abandoning Pennylane for a Cirq weighted maxcut implementation
 
 Another thing I did during exploration was read through Jack's blog post and code. It's crazy that I didn't even look at Jack's code before Sunday morning! I was so sick of debugging Pennylane that I wanted a switch-up. I abandoned my old Pennylane code and copy pasted Jack's code onto a notebook. 
 
@@ -92,7 +93,7 @@ At this time, it was 11:30 AM on Sunday. I was exhausted. I took a break for an 
 
 (Note: I a few hours later, I did realize what went wrong with the above plot. It was the "[lazy cost function](#some-interesting-insights)". This problem is now fixed and the notebook works well now :))
 
-#### Sunday Part 3: Back to Pennylane
+### Sunday Part 3: Back to Pennylane
 
 After lunch, I thought about this project holistically. I set a personal goal for this task to "re-implement" Jack's code into Pennylane. Even though the code in Cirq had worked decently, I didn't want to merely submit Jack's code with a few tweaks. It felt cheap, and although it was allowed, it didn't vibe well with my conscience. 
 
@@ -187,7 +188,7 @@ AGHHHHHHHHHHHHHHHHHHHHHHH
 
 I had no idea what went wrong at this point, so I left it at that. Instead of spending time to fix it, I thought I'd write about the process in the readme to make my failure more of a growing experience. That is what you're reading right now.
 
-#### Post-submission
+### Post-submission
 
 3 days later, I found the error. It was such a trivial error with how I called the list variables. My circuit actually outputted the correct result previously. More details [here](change-log/02-24-histograms.md).
 
@@ -197,6 +198,50 @@ The Pennylane code works now :)
 
 Yup, this is 3 days after the QOSF submission deadline. Don't know if it counts. If not, [11.ipynb](attempts/11.ipynb) is unmodified after Sunday except for fixing one typo.
 
+## A few more problems
+* The cost function doesn't steadily go down >:(
+
+E.g. the recent run:
+```
+Cost: -10.916000000000015
+Cost: -10.687000000000022
+Cost: -10.945000000000016
+Cost: -11.083000000000016
+Cost: -11.219000000000017
+Cost: -10.992000000000017
+Cost: -11.205000000000018
+Cost: -11.017000000000014
+Cost: -10.956000000000017
+Cost: -10.979000000000019
+```
+
+It goes from 10 to 11 to 10 to 11 and back to 10 again. Sometimes, the cost output looks more like a random number generator than a cost function output. I tried with a few Pennylane optimizers and COBYLA and this always happens. Maybe it's escaping local minima. Not completely sure.
+
+Earlier in the same run:
+```
+Cost: -7.688000000000008
+Cost: -8.166000000000006
+Cost: -9.16000000000002
+Cost: -8.71300000000002
+Cost: -7.425000000000009
+Cost: -8.558000000000016
+Cost: -8.510000000000016
+Cost: -8.953000000000024
+Cost: -8.723000000000013
+Cost: -8.32500000000001
+Cost: -8.363000000000016
+Cost: -7.471000000000012
+Cost: -6.744000000000003
+Cost: -8.450000000000012
+```
+
+It's at -9, but then goes to *-6*. The cost *increases* by a significant amount.
+
+* The correct answers have the highest frequency, but a few others are pretty close behind:
+![Pennylane output histogram](img/pennylane-output-3.png "Yay!")
+Maybe I should experiment with more layers.
+
+* My final code takes ~3-5 mins to train. Compared to the Cirq code based off of Jack's [6-cirq-final.ipynb](/attempts/6-cirq-final.ipynb) which takes less than 10 seconds to train.
 
 ## Some interesting insights
 
@@ -218,7 +263,7 @@ I found this interesting. I'm curious to know why. I want to work through this m
 * Shoot maybe admitting what I admitted in the last bullet point is too much. Yea, authenticity is great, but... maybe being too authentic isn't so great. Not writing about your selfish intentions publically might be beter.
 * As of 8pm Sunday night, the notebooks are pretty messy. I started writing my own code starting from 8.ipynb. I spent a good first hour trying to make all my variables "politically correct", having a space for all user inputs in one place, wanting to explain how the algorithm works in every line of code. But after a while, I pivoted to focusing on making the code logic work before improving its presentation. Now... 11 is filled with comments from debugging. 10:27 PM: I have updated notebook 11. It's no longer filled with comments from debugging. But 6 and all the others still are.
 
-###### Time spent: 
+## Time spent: 
 * Feb 20 6AM-9AM
 * Feb 20 12:30PM-2:30PM
 * Feb 20 7PM-10PM
@@ -227,7 +272,9 @@ I found this interesting. I'm curious to know why. I want to work through this m
 * Feb 21 1PM-5:40PM
 * Feb 21 6:30PM-10:30PM  
 
-Total time spent:  ~17 hours
+**Total time spent:  ~17 hours**
+
+All of this effort was for this one measly lil notebook...
 
 ## [Go check it out!!](attempts/12-pennylane-final.ipynb)
-All of this effort was for this one measly lil notebook...
+
