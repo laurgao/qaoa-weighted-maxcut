@@ -1,32 +1,17 @@
-# 11 Notebooks, 10 failures  
-Time spent: 
-* Feb 20 6AM-9AM
-* Feb 20 12:30PM-2:30PM
-* Feb 20 7PM-10PM
-* Feb 21 6AM-9AM
-* Feb 21 10AM-11:30AM
-* Feb 21 1PM-5:40PM
-* Feb 21 6:30PM-10:30PM  
-
-Total time spent:  ~17 hours
-
-*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [11-pennylane-final.ipynb](/attempts/11-pennylane-final.ipynb). This is an implementation in Pennylane that I coded essentially from the ground up. The code in said notebook isn't perfect and the result is not always correct, from reasons you'll see later, but I choose to submit it anyway. I do, however, want to let you know that I have a working implementation of QAOA weighted maxcut in the notebook [6-cirq-final.ipynb](/attempts/6-cirq-final.ipynb) - the code there is based off of Jack's code and is much faster than the code I wrote.*
-
-## Problem statement
-
-**Tl;dr: Generalize the QAOA code to solve the maxcut problems for *weighted* graphs.**
-
-The [MaxCut problem](https://en.wikipedia.org/wiki/Maximum_cut) is a well-known optimization problem in which the nodes of a given undirected graph have to be divided in two sets (often referred as the set of “white” and “black” nodes) such that the number of edges connecting a white node with a black node are maximized. The MaxCut problem is a problem on which the QAOA algorithm has proved to be useful (for an explanation of the QAOA algorithm you can read [this blogpost](https://www.mustythoughts.com/quantum-approximate-optimization-algorithm-explained)).
-
-At [this link](https://lucaman99.github.io/new_blog/2020/mar16.html) you can find an explicit implementation of the QAOA algorithm to solve the MaxCut problem for the simpler case of an unweighted graph. We ask you to generalize the above code to include also the solution for the case of weighted graphs. You can use the same code or you can also do an alternative implementation using, for example, qiskit. The important point is that you do not make use of any built-in QAOA functionalities.
-
-## My QAOA maxcut journey 
+# 12 Notebooks, 10 failures  
+###### My QAOA maxcut journey 
 
 Picture this: you know nothing about QAOA (beyond it has a cool name some pronounce "kwa-wa") and in less than 48 hours, you're supposed to build a implementation of the algorithm to solve the weighted maxcut problem, generalized to be able to work on any graph.
 
 That's where I was on the morning of Saturday, Feb 20. By Sunday night, I had to submit this code as part of a screening task for [QOSF mentorship](https://qosf.org/qc_mentorship/) applications.
 
 My anxiety levels were though the roof. No kidding.
+
+*WAIT! Before I get into the story, some housekeeping: The final code I'm submitting is [12-pennylane-final.ipynb](/attempts/12-pennylane-final.ipynb).
+
+**Problem statement:  Generalize the provided QAOA code to solve the maxcut problems for *weighted* graphs.**
+
+For those unfamiliar, [here](problem-statement.md) is the full problem statement.
 
 ### How I learnt and built QAOA in 2 days
 #### Saturday Part 1: Pennylane unweighted implementation
@@ -188,9 +173,9 @@ def U_C(gamma):
         qml.CNOT(wires=[wire1, wire2])
 ```
 
-5 hours re-engineering the structure of my code, writing functions to convert decimal strings into binary, were all useless. 
+5 hours re-engineering the structure of my code, writing functions to convert decimal strings into binary, were all useless. All I needed to do was to add 7 characters `*weight`.
 
-Anyway, it's there now. You can see it in [11-pennylane-final.ipynb](/attempts/11-pennylane-final.ipynb)
+Anyway, it's there now. You can see it in [12-pennylane-final.ipynb](/attempts/12-pennylane-final.ipynb)
 
 Now, armed with this new insight, I updated my code and re-trained the Pennylane circuit. 
 
@@ -198,24 +183,19 @@ How did it do?
 
 ![Pennylane output histogram](img/pennylane-output.png "I got 1/2 of the correct answer, at least! Similing through the pain")
 
-I got 1/2 of the correct answer, at least! *Similing through the pain*
+AGHHHHHHHHHHHHHHHHHHHHHHH
 
+I had no idea what went wrong at this point, so I left it at that. Instead of spending time to fix it, I thought I'd write about the process in the readme to make my failure more of a growing experience. That is what you're reading right now.
 
-Future: debug this code and see what's up. I estimate that doing such a task would take at least an hour, likely more (remember the 5 hours switching a single cost unitary matrix? That was because I was debugging the output of `qml.Hermitian(np.diag(range(2 ** n_wires)), wires=wires)`. So instead, I'm using an hour to write up this account of my experience. 
+#### Post-submission
 
-I estimate that it's because I'm measuring a single state instead of sampling from multiple states. It sure looks like it. However, the `get_counts(optimal_params_vector)` function I am executing to generate this plot is indeed firing 100 shots... so I have no clue what's up.
+3 days later, I found the error. It was such a trivial error with how I called the list variables. My circuit actually outputted the correct result previously. More details [here](change-log/02-24-histograms.md).
 
----
+The Pennylane code works now :)
 
-As of 8pm, the notebooks are pretty messy. I started writing my own code starting from 8.ipynb. I spent a good first hour trying to make all my variables "politically correct", having a space for all user inputs in one place, wanting to explain how the algorithm works in every line of code. But after a while, I pivoted to focusing on making the code logic work before improving its presentation. Now...
+![Pennylane output histogram](img/pennylane-output-3.png "Yay!")
 
-11 is filled with comments from debugging. 
-
-10:27 PM: I have updated notebook 11. It's no longer filled with comments from debugging. But 6 and all the others still are.
-
-Also, I realized that all the content from 8.ipynb got deleted somehow. I'm positive I spammed ctrl+s in the Jupyter Notebook editor 10 times before closing, but... oh well. There goes the notebook I spent 5 hours debugging and 2 hours making the comments/structure perfect.
-
-On a side note, this might be why I always feel tense and experience anxiety while coding -- I have no trust that my files will stay or that the same code will run the same way when I run it a second time. For this, I might just need to understand backend OS elements better.
+Yup, this is 3 days after the QOSF submission deadline. Don't know if it counts. If not, [11.ipynb](attempts/11.ipynb) is unmodified after Sunday except for fixing one typo.
 
 
 ## Some interesting insights
@@ -231,3 +211,23 @@ Compared to the legit cost function:
 ![Legit cost function output](img/cirq-output.png)
 
 I found this interesting. I'm curious to know why. I want to work through this math.
+
+## Reflections
+* I realized that all the content from 8.ipynb got deleted somehow. I'm positive I spammed ctrl+s in the Jupyter Notebook editor 10 times before closing, but... oh well. There goes the notebook I spent 5 hours debugging and 2 hours making the comments/structure perfect. This might be why I always feel tense and experience anxiety while coding -- I have no trust that my files will stay or that the same code will run the same way when I run it a second time. Yes, my brain knows that code is 100% logic based, but my feelings don't. For this, I might just need to understand backend OS elements better.
+* Why did I spend a few hours writing this? Why did I upload all my failed attempts? I don't know. I want a record of the effort I put in. While coding, it was so hard so hard so hard and lots of pain pain pain pain pain staring at a screen of bugs for a whole afternoon makes your head hurt BUT looking at the repository, you don't see that. Looking at the final polished result, you don't see the pain. Even as I look back, I am no longer feeling the pain. This is a recurring theme amongst basically every project I complete: as soon as I hit publish, I forget the pain I experienced. I forget the hard work. I want to remember it. I want to document my experience. I think maybe writing this was more for me than for anyone else. ... or maybe I wrote this because I wanted the evaluators of this repo to see that although I failed, I put in a ton of work.
+* Shoot maybe admitting what I admitted in the last bullet point is too much. Yea, authenticity is great, but... maybe being too authentic isn't so great. Not writing about your selfish intentions publically might be beter.
+* As of 8pm Sunday night, the notebooks are pretty messy. I started writing my own code starting from 8.ipynb. I spent a good first hour trying to make all my variables "politically correct", having a space for all user inputs in one place, wanting to explain how the algorithm works in every line of code. But after a while, I pivoted to focusing on making the code logic work before improving its presentation. Now... 11 is filled with comments from debugging. 10:27 PM: I have updated notebook 11. It's no longer filled with comments from debugging. But 6 and all the others still are.
+
+###### Time spent: 
+* Feb 20 6AM-9AM
+* Feb 20 12:30PM-2:30PM
+* Feb 20 7PM-10PM
+* Feb 21 6AM-9AM
+* Feb 21 10AM-11:30AM
+* Feb 21 1PM-5:40PM
+* Feb 21 6:30PM-10:30PM  
+
+Total time spent:  ~17 hours
+
+## [Go check it out!!](attempts/12-pennylane-final.ipynb)
+All of this effort was for this one measly lil notebook...
