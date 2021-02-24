@@ -79,4 +79,7 @@ While writing this, I just realized how often I mixed up the words "array" and "
 NOW I CAN DELETE IT BECAUSE MY CODE WORKS!!!!!!!!!!!!!!!!!!!!!!!
 
 
+You know what, I'm not even going to write 
+> The code in said notebook is not perfect, for reasons you'll see soon, but I choose to submit it anyway. [6-cirq-final.ipynb](/attempts/6-cirq-final.ipynb) also does the job. The code there is based off of Jack's code and is much faster than the code I wrote.
 
+there's no point in highlighting that my code is not perfect.
